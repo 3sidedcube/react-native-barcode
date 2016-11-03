@@ -4,41 +4,69 @@
 #import <CoreImage/CoreImage.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-@implementation LFQRCode{
-    UIImageView *_image;
-    CIImage *_qrImage;
-}
+@interface LFQRCode ()
 
--(void)setContent:(NSString *)content
+@property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) CIImage *qrImage;
+
+@end
+
+@implementation LFQRCode
+
+- (instancetype)init
 {
-    if (_image) {
-        [_image removeFromSuperview];
+    if (self = [super init]) {
+        
+        self.imageView = [UIImageView new];
+        [self addSubview:self.imageView];
     }
     
-    
-    NSDictionary *dic = @{
-                          @"inputMessage" : [content dataUsingEncoding:NSUTF8StringEncoding],
-                          };
-    
-    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator" withInputParameters:dic];
-    _qrImage = [filter outputImage];
-    
-    _image = [[UIImageView alloc] init];
+    return self;
 }
 
--(void)layoutSubviews
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        
+        self.imageView = [UIImageView new];
+        [self addSubview:self.imageView];
+    }
+    
+    return self;
+}
+
+- (void)setContent:(NSString *)content
+{
+    NSData *data = [content dataUsingEncoding:NSISOLatin1StringEncoding allowLossyConversion:false];
+    
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    [filter setValue:data forKey:@"inputMessage"];
+    
+    self.qrImage = [filter outputImage];
+}
+
+- (void)setQrImage:(CIImage *)qrImage
+{
+    _qrImage = qrImage;
+    [self updateImage];
+}
+
+- (void)layoutSubviews
 {
     [super layoutSubviews];
+    [self updateImage];
+}
+
+- (void)updateImage
+{
+    double scaleX = self.bounds.size.width / self.qrImage.extent.size.width;
+    double scaleY = self.bounds.size.height / self.qrImage.extent.size.height;
     
-    double scaleX = self.bounds.size.width / _qrImage.extent.size.width;
-    double scaleY = self.bounds.size.height / _qrImage.extent.size.height;
+    CIImage *transformedImage = [self.qrImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
     
-    CIImage *transformedImage = [_qrImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
-    
-    [_image setImage:[UIImage imageWithCIImage:transformedImage]];
-    
-    _image.frame = self.bounds;
-    [self insertSubview:_image atIndex:0];
+    self.imageView.frame = self.bounds;
+    self.imageView.image = [UIImage imageWithCIImage:self.qrImage];
 }
 
 @end
