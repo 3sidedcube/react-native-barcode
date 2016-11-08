@@ -1,0 +1,3 @@
+rootProject.name = 'RNBarcode'
+
+include ':app'

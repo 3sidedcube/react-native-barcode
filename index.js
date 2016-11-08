@@ -1,5 +1,5 @@
 const AztecCode = require('./AztecCode.ios.js');
-const QRCode = require('./QRCode.ios.js');
+import QRCode from './QRCode';
 
 module.exports = {
     AztecCode: AztecCode,
