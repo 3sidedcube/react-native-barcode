@@ -1,4 +1,4 @@
-const AztecCode = require('./AztecCode.ios.js');
+import AztecCode from './AztecCode';
 import QRCode from './QRCode';
 
 module.exports = {
