@@ -66,7 +66,7 @@
     CIImage *transformedImage = [self.qrImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
     
     self.imageView.frame = self.bounds;
-    self.imageView.image = [UIImage imageWithCIImage:self.qrImage];
+    self.imageView.image = [UIImage imageWithCIImage:transformedImage];
 }
 
 @end
