@@ -1,16 +1,19 @@
 'use strict';
 
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
 	Image,
 	NativeModules
 } from 'react-native';
 
-const QRCode = React.createClass({
+import PropTypes from "prop-types";
+import createReactClass from "create-react-class";
+
+const QRCode = createReactClass({
 
 	propTypes: {
 		...Image.propTypes,
-		content: React.PropTypes.string
+		content: PropTypes.string
 	},
 
 	getInitialState() {

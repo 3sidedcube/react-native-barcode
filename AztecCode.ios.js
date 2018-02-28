@@ -5,7 +5,9 @@
 
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
+
 import {
   requireNativeComponent,
 } from 'react-native';
@@ -20,7 +22,7 @@ AztecCode.propTypes = {
   /**
    * This is the content of the generated Aztec Code
    */
-   content: React.PropTypes.string,
+   content: PropTypes.string,
 };
 
 var LFAztecCode = requireNativeComponent('LFAztecCode', AztecCode);

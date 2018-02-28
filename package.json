@@ -14,6 +14,9 @@
     "url": "git@github.com:leofidjeland/react-native-barcode.git"
   },
   "peerDependencies": {
-    "react-native": ">=0.8.0"
+    "create-react-class": "^15.6.2",
+    "react": ">=15.4.0 || ^16.0.0-alpha",
+    "react-native": ">=0.40",
+    "prop-types": "^15.5.10"
   }
 }
