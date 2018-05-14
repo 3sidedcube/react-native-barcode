@@ -22,7 +22,7 @@ const QRCode = createReactClass({
 		};
 	},
 
-	componentWillMount() {
+	componentDidMount() {
 		this.loadBarcode(this.props.content);
 	},
 
